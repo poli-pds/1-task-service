@@ -1,5 +1,6 @@
 package co.com.poli.task.services;
 
+import co.com.poli.task.mapper.TaskInDTOToTask;
 import co.com.poli.task.persistence.entity.Task;
 import co.com.poli.task.persistence.entity.TaskStatus;
 import co.com.poli.task.persistence.repository.TaskRepository;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class TaskServiceImpl implements TaskService{
 
     private final TaskRepository taskRepository;
+    private final TaskInDTOToTask taskInDTOToTask;
     @Override
     public List<Task> findAll() {
         return taskRepository.findAll();
@@ -23,7 +25,7 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task create(TaskInDTO task) {
-        return null;
+        return taskRepository.save(taskInDTOToTask.mapper(task));
     }
 
     @Override
